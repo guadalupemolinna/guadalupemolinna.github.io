@@ -1,9 +1,0 @@
-:root {
-  --primary: #4F46E5; /* indigo-600 */
-  --primary-foreground: #FFFFFF;
-  --radius: 0.75rem;
-}
-body { font-family: "Inter", system-ui, sans-serif; background: #F5F7FB; color: #0F172A; }
-.field > label[for] { font-size: 13px; font-weight: 600; }
-.field > p { font-size: 12px; font-weight: 400; }
-[data-invalid] label:has(input[type=radio]) { border-color: #DC2626; }
