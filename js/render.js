@@ -58,7 +58,7 @@ export function montarCampos() {
 export function montarPies() {
   $$('[data-pie]').forEach(p => {
     p.innerHTML = `<div class="mt-6 flex flex-col gap-3 border-t border-slate-200 pt-5 lg:flex-row lg:items-center">
-      <button type="button" class="btn ${'primero' in p.dataset ? 'hidden' : 'max-lg:hidden'}" data-variant="outline" data-volver>Volver</button>
+      <button type="button" class="btn max-lg:hidden" data-variant="outline" data-volver>Volver</button>
       <div class="flex flex-col gap-2 lg:ml-auto lg:flex-row lg:items-center lg:gap-4">
         <p data-ayuda class="text-center text-xs text-slate-500 lg:text-right" hidden></p>
         <button type="button" class="btn w-full lg:w-auto lg:min-w-48" data-sig>${p.dataset.pie}</button></div></div>`;
@@ -151,6 +151,46 @@ export function renderResumen() {
 function renderPlanes() {
   planes.forEach(p => { const c = $(`[data-cuota="${p.id}"]`); if (c) c.textContent = ars.format(cuotaDe(p)); });
   $$('[data-plan]').forEach(r => { r.checked = r.value === s.plan; });
+}
+
+function renderExito() {
+  const p = planes.find(x => x.id === s.plan);
+  const out = { nombre: s.titular.nombre, email: s.titular.email, poliza: s.poliza, plan: p?.nombre,
+    equipo: [s.equipo.marca, s.equipo.modelo].join(' '), vigencia: new Date().toLocaleDateString('es-AR'), cuota: p ? ars.format(cuotaDe(p)) : '' };
+  $$('[data-out]').forEach(el => { el.textContent = out[el.dataset.out] ?? ''; });
+}
+
+function renderCuenta() {
+  const p = planes.find(x => x.id === s.plan);
+  $('#cuenta').innerHTML = s.poliza && p
+    ? `<div class="card p-5"><b class="text-indigo-800">${s.poliza}</b>
+        <dl class="grid gap-1 text-sm">${[['Titular', `${s.titular.nombre} ${s.titular.apellido}`], ['Email', s.titular.email], ['Seguro', 'Celular'], ['Equipo', [s.equipo.marca, s.equipo.modelo].join(' ')], ['Plan', p.nombre], ['Cuota mensual', ars.format(cuotaDe(p))]]
+          .map(([a, b]) => `<div class="flex justify-between"><dt class="text-slate-500">${a}</dt><dd class="font-semibold">${esc(b)}</dd></div>`).join('')}</dl></div>`
+    : '<div class="card p-5"><p class="text-slate-500">Todavía no tenés seguros contratados.</p><button type="button" class="btn w-fit" data-ir="1">Cotizar un seguro</button></div>';
+}
+
+export function render() {
+  const paso = s.paso, enPaso = paso >= 1 && paso <= 4;
+  $$('[data-paso]').forEach(x => { x.hidden = Number(x.dataset.paso) !== paso; });
+  $('#checkout').hidden = !enPaso;
+  $('#cabecera').hidden = !enPaso;
+  if (enPaso) {
+    $('#titulo').textContent = TITULOS[paso];
+    $('#titulo').classList.toggle('max-lg:hidden', paso !== 1);
+    $('#hdr-title').textContent = TIT_MOVIL[paso];
+  }
+  $('#hdr-back').hidden = !(enPaso || paso >= 7);
+  $('#hdr-title').hidden = !enPaso;
+  $('#hdr-logo').classList.toggle('max-lg:hidden', enPaso);
+  $$('[data-nav]').forEach(b => Number(b.dataset.ir) === paso
+  ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));$$('[data-nav]').forEach(b => b.toggleAttribute('aria-current', Number(b.dataset.ir) === paso));
+  renderCampos();
+  renderPlanes();
+  renderPies();
+  renderStepper();
+  renderResumen();
+  if (paso === 5) renderExito();
+  if (paso === 9) renderCuenta();
 }
 
 function renderExito() {
