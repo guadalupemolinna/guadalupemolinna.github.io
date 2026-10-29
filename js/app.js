@@ -39,7 +39,7 @@ async function pagar() {
 function clicks(e) {
   const b = e.target.closest('button'); if (!b || s.procesando) return;
   if (b.dataset.ir) irAPaso(Number(b.dataset.ir));
-  else if (b.dataset.volver !== undefined) irAPaso(s.paso - 1);
+  else if (b.dataset.volver !== undefined) irAPaso(s.paso >= 7 ? 0 : s.paso - 1);
   else if (b.dataset.reiniciar !== undefined) reiniciar();
   else if (b.dataset.descargar !== undefined) window.print();
   else if (b.dataset.cambiar !== undefined) { irAPaso(4); document.querySelector('[name="metodo"]:checked')?.focus(); }
@@ -73,3 +73,4 @@ async function iniciar() {
   render();
 }
 iniciar();
+
