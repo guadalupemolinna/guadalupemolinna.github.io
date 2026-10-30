@@ -1,4 +1,4 @@
-// Funciones puras: reciben un valor y devuelven un mensaje de error o null.
+
 const limpio = v => String(v).replace(/[\s-]/g, '');
 const letras = v => (String(v).match(/\p{L}/gu) || []).length;
 
