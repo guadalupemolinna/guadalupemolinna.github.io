@@ -2,7 +2,7 @@
 
 TP5 · Diseño UXUI 2026 · Individual. Checkout multipaso (Cotizar → Plan → Datos → Pago) con pantallas de éxito y error, mobile first (390) y desktop (1440).
 
-- **Sitio publicado:** _(agregar URL)_
+- **Sitio publicado:**(https://guadalupemolinna.github.io/)
 - **Diseño:** [Figma](https://www.figma.com/design/vJrfOUfiOI7OSeTtRfCloh)
 
 ## Stack
@@ -46,7 +46,4 @@ Tarjetas de prueba: `4111 1111 1111 1111` aprueba · `4000 0000 0000 0002` recha
 ## Bonus
 - Máscaras de input: tarjeta en grupos de 4 y vencimiento con barra automática.
 
-## Capturas
-| Mobile (390) | Desktop (1440) |
-|---|---|
-| _(agregar)_ | _(agregar)_ |
+
