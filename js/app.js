@@ -57,10 +57,14 @@ function clicks(e) {
 
 async function iniciar() {
   document.getElementById('catalogo').innerHTML = CATALOGO.map(([n, sub, precio, ic, on]) => `
-    <button type="button" class="card gap-0 p-4 text-left ${on ? 'border-indigo-600' : 'opacity-70'}" ${on ? 'data-ir="1"' : 'disabled'}>
+    <button type="button" class="card gap-0 p-4 text-left ${on ? 'border-2 border-indigo-600' : 'opacity-70'}" ${on ? 'data-ir="1"' : 'disabled'}>
       <span class="mb-6 grid size-8 place-items-center rounded-lg bg-indigo-50 text-indigo-600"><svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ic}</svg></span>
       <b>${n}</b><span class="text-xs text-slate-500">${sub}</span><span class="mt-1 text-xs font-semibold text-indigo-600">${precio}</span>
-      ${on ? '' : '<span class="badge mt-2 w-fit" data-variant="outline">Próximamente</span>'}</button>`).join('');
+      ${on ? '' : '<span class="badge mt-2 w-fit" data-variant="outline">Próximamente</span>'}</button>`).join('') + `
+  <div class="card col-span-2 flex-row items-center gap-3 p-4">
+    <span class="badge !bg-emerald-50 !text-emerald-700" data-variant="secondary">NUEVO</span>
+    <span class="text-xs text-slate-500">Primer mes con 20% OFF en todos los planes</span>
+  </div>`;
   montarCampos();
   montarPies();
   render();
@@ -73,4 +77,3 @@ async function iniciar() {
   render();
 }
 iniciar();
-
